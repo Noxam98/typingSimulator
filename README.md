@@ -1,0 +1,2 @@
+# typingSimulator
+pet project
