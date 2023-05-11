@@ -21,7 +21,7 @@ const Key = ({keyInfo, pressedKeys, currentLanguage}) => {
                             justifyContent: 'center',
                             padding: '0',
                             alignItems: 'center',
-                            scale: `${pressedKeys.includes(code) ? '1.10' : '1'}`,
+                            scale: `${pressedKeys.includes(code) ? '.9' : '1'}`,
                             backgroundColor:`${pressedKeys.includes(code)? 'yellow' : 'gray'}`,
                             transition: '.05s',
                             borderRadius: '4px',
@@ -30,9 +30,10 @@ const Key = ({keyInfo, pressedKeys, currentLanguage}) => {
 
                             <div style={{
                                 position: "absolute",
-                                top: '10%',
+                                top: `${dataLang && dataLang.label ? '50%' : '10%'}`,
                                 scale: '1.1',
-                                left: '20%',
+                                left: `${dataLang && dataLang.label ? '50%' : '20%'}`,
+                                transform: `${dataLang && dataLang.label ? 'translate(-50%, -50%)' : 'none'}`,
                                 color: "black",
                             }}>
                                 {pressedKeys.includes('ShiftLeft') || pressedKeys.includes('ShiftRight') ? dataLang && dataLang.label || dataLang.shift || code : keyData && dataLang.label || dataLang.value || code}
@@ -55,9 +56,7 @@ const Key = ({keyInfo, pressedKeys, currentLanguage}) => {
                         width: `45px`,
                         height: '45px',
                         margin: '3px',
-                        // border:'3px solid red',
                         borderRadius:'4px',
-
                         display: 'flex',
                         flexDirection: 'column',
                         position: 'relative',
@@ -72,17 +71,17 @@ const Key = ({keyInfo, pressedKeys, currentLanguage}) => {
                                 return <div
                                     style={{
                                         width: '100%',
-                                        height: '47%',
+                                        height: '47.5%',
                                         // margin: '3px',
                                         display: 'flex',
                                         justifyContent: 'center',
                                         padding: '0',
                                         alignItems: 'center',
                                         color:'black',
-                                        scale: `${pressedKeys.includes(miniKey.code) ? '1.10' : '1'}`,
+                                        scale: `${pressedKeys.includes(miniKey.code) ? '.9' : '1'}`,
                                         backgroundColor:`${pressedKeys.includes(miniKey.code)? 'yellow' : 'gray'}`,
                                         transition: '.05s',
-                                        // borderRadius: '4px',
+                                        borderRadius: '3px',
                                         zIndex: '100'}}
                                 >{miniKey.keyData[0].label}</div>
                             })
@@ -116,7 +115,6 @@ const Keyboard = () => {
 
     useEffect(() => {
         document.addEventListener('keydown', (e) => {
-            // console.log(e)
             dispatch(keyPressed({key: e.code}))
             e.preventDefault()
         })
@@ -130,30 +128,31 @@ const Keyboard = () => {
             const idLang = availableLangs.indexOf(currentLanguage)
             const nextLeng = availableLangs[idLang === availableLangs.length-1 ? 0 : idLang+1]
             dispatch(setInputLanguage({lang: nextLeng}))
-
-            // dispatch()
         }
     }, [pressedKeys])
 
-    // useEffect(()=>{
-    //     console.log(keys)
-    // }, [keys])
-
-
     return (
-        <div>
-            <div style={{display: "flex", flexDirection:'column'}}>
-                <div>
-                    Нажатые клавиши: {JSON.stringify(pressedKeys)}
-                </div>
-                <div>
-                    Доступные языки: {JSON.stringify(availableLangs)}
+        <div style={{
+            position:'absolute',
+            left: '50%',
+            top: '50%',
+            border:'3px solid gray',
+            borderRadius:'10px',
+            padding: '6px',
+            transform: 'translate(-50%, -50%)'
+        }}>
+            {/*<div style={{display: "flex", flexDirection:'column'}}>*/}
+            {/*    <div>*/}
+            {/*        Нажатые клавиши: {JSON.stringify(pressedKeys)}*/}
+            {/*    </div>*/}
+            {/*    <div>*/}
+            {/*        Доступные языки: {JSON.stringify(availableLangs)}*/}
 
-                </div>
-                <div>
-                     Текущий Язык: {JSON.stringify(currentLanguage)}
-                </div>
-            </div>
+            {/*    </div>*/}
+            {/*    <div>*/}
+            {/*         Текущий Язык: {JSON.stringify(currentLanguage)}*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
             {keyboardData.map((lineData, i) => <Line key={i} pressedKeys={pressedKeys} currentLanguage={currentLanguage} lineData={lineData}/>)}
         </div>
