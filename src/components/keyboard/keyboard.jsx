@@ -21,7 +21,7 @@ const Key = ({keyInfo, pressedKeys, currentLanguage}) => {
                             justifyContent: 'center',
                             padding: '0',
                             alignItems: 'center',
-                            scale: `${pressedKeys.includes(code) ? '.9' : '1'}`,
+                            scale: `${pressedKeys.includes(code) ? '.95' : '1'}`,
                             backgroundColor:`${pressedKeys.includes(code)? 'yellow' : 'gray'}`,
                             transition: '.05s',
                             borderRadius: '4px',
@@ -141,6 +141,11 @@ const Keyboard = () => {
             padding: '6px',
             transform: 'translate(-50%, -50%)'
         }}>
+            <div style={{position: 'relative'}}>
+                <div style={{position: "absolute", top: '-30px'}}>
+                    <span>Shift+Alt - change language.</span>
+                </div>
+            </div>
             {/*<div style={{display: "flex", flexDirection:'column'}}>*/}
             {/*    <div>*/}
             {/*        Нажатые клавиши: {JSON.stringify(pressedKeys)}*/}
